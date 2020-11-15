@@ -1,12 +1,20 @@
 class Game {
     constructor() {
         this.missed = 0;
-        this.phrases = ['Life is like a box of chocolates',
-            'There is no trying',
-            'May the force be with you',
-            'You have to see the matrix for yourself',
-            'You talking to me'];
-        this.activePhrase = 'null'
+        this.phrases = this.createPhrases();
+        this.activePhrase = null
+    }
+
+    createPhrases(){
+        const phrases = [
+            new Phrase('Life is like a box of chocolates'),
+            new Phrase('There is no trying'),
+            new Phrase('May the force be with you'),
+            new Phrase('You have to see the matrix for yourself'),
+            new Phrase('You talking to me')
+        ];
+
+        return phrases
     }
 
     getRandomPhrase() {
@@ -14,7 +22,7 @@ class Game {
         // retuan a pharse object to the active phrase in lower case
 
         const phraseIndex = parseInt(Math.random() * this.phrases.length);
-        return new Phrase(this.phrases[phraseIndex].toLowerCase())
+        return new Phrase(this.phrases[phraseIndex].phrase.toLowerCase())
     }
 
     startGame() {
@@ -84,8 +92,10 @@ class Game {
 
         if(gameWon){
             document.querySelector("#game-over-message").innerHTML="You won!";
+            startScreen.className = 'win';
         } else {
             document.querySelector("#game-over-message").innerHTML="You lost";
+            startScreen.className = 'lose';
         }
 
     }
